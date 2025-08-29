@@ -1,10 +1,10 @@
-import express from 'express';
+import express, { Request, Response } from 'express';
 import { verifyToken } from '../utils/jwt';
 import { agents } from '../agents';
 
 const router = express.Router();
 
-router.post('/task', async (req, res) => {
+router.post('/task', async (req: Request, res: Response) => {
   const token = req.headers.authorization?.split(' ')[1];
   if (!token) return res.status(401).json({ error: 'No token' });
   try {

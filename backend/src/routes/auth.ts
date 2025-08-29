@@ -1,11 +1,11 @@
-import express from 'express';
+import express, { Request, Response } from 'express';
 import bcrypt from 'bcryptjs';
 import User from '../models/user';
 import { signToken } from '../utils/jwt';
 
 const router = express.Router();
 
-router.post('/register', async (req, res) => {
+router.post('/register', async (req: Request, res: Response) => {
   const { username, password } = req.body;
   if (!username || !password) return res.status(400).json({ error: 'Missing fields' });
   const existing = await User.findOne({ username });
@@ -17,7 +17,7 @@ router.post('/register', async (req, res) => {
   res.json({ token });
 });
 
-router.post('/login', async (req, res) => {
+router.post('/login', async (req: Request, res: Response) => {
   const { username, password } = req.body;
   const user = await User.findOne({ username });
   if (!user) return res.status(400).json({ error: 'Invalid credentials' });
